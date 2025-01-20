@@ -1,36 +1,37 @@
 package fr.eni.ludotheque.bo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.validation.constraints.NotBlank;
 
 public class Jeu {
 	
-	@NotBlank
 	private Integer id;
 	
 	@NotBlank
 	private String titre;
 	
 	@NotBlank
-	private int reference;
+	private String reference;
 	
 	private String decription;
 	
-	@NotBlank
 	private int tarif;
 	
-	@NotBlank
 	private int ageMin;
 	
-	@NotBlank
 	private float duree;
 
+	private List<Genre> genres;
+	
 	public Jeu() {
+		genres = new ArrayList<>();
 	}
 
-	public Jeu(Integer id,String titre, int reference, String decription,
-			int tarif, int ageMin, float duree) {
+	public Jeu(Integer id,String titre, String reference, String decription,
+			int tarif, int ageMin, float duree, Genre... genres	) {
 		super();
 		this.id = id;
 		this.titre = titre;
@@ -39,9 +40,12 @@ public class Jeu {
 		this.tarif = tarif;
 		this.ageMin = ageMin;
 		this.duree = duree;
+		for(Genre genre :genres) {
+			this.genres.add(genre);
+		}
 	}
 
-	public Jeu (String titre, int reference, String decription, int tarif, float duree) {
+	public Jeu (String titre, String reference, String decription, int tarif, float duree) {
 		super();
 		this.titre = titre;
 		this.reference = reference;
@@ -66,11 +70,11 @@ public class Jeu {
 		this.titre = titre;
 	}
 
-	public int getReference() {
+	public String getReference() {
 		return reference;
 	}
 
-	public void setReference(int reference) {
+	public void setReference(String reference) {
 		this.reference = reference;
 	}
 
@@ -104,6 +108,18 @@ public class Jeu {
 
 	public void setDuree(float duree) {
 		this.duree = duree;
+	}
+
+	public List<Genre> getGenres() {
+		return genres;
+	}
+	
+	public void addGenre(Genre genre) {
+		this.genres.add(genre);
+	}
+
+	public void setGenres(List<Genre> genres) {
+		this.genres = genres;
 	}
 
 	@Override

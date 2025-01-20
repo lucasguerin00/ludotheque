@@ -1,4 +1,4 @@
-package fr.eni.ludotheque.dal;
+package fr.eni.ludotheque.dal.client;
 
 import java.util.List;
 import java.util.Optional;

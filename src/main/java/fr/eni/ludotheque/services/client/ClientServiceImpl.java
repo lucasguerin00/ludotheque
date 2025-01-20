@@ -1,4 +1,4 @@
-package fr.eni.ludotheque.services;
+package fr.eni.ludotheque.services.client;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import fr.eni.ludotheque.bo.Client;
-import fr.eni.ludotheque.dal.ClientRepository;
+import fr.eni.ludotheque.dal.client.ClientRepository;
 import fr.eni.ludotheque.exceptions.ClientNotFoundException;
 
 @Service
