@@ -1,31 +1,46 @@
 <div class="container mx-auto">
     <h1>[[${jeu.titre}]]</h1>
-	
-		<div>
-            <span>Référence : </span>
-            <span th:text="${jeu.reference}"></span>
-         </div>
-		<div>
-            <span>Description : </span>
-            <span th:text="${jeu.description}"></span>
-         </div>
-		<div>
-            <span>Tarif à la journée : </span>
-            <span >[[${jeu.tarifJournee}]] Euros</span>
-         </div>
-		<div>
-            <span>Age minimum : </span>
-            <span >[[${jeu.ageMin}]] ans</span>
-         </div>
-		<div>
-            <span>duree : </span>
-            <span >[[${jeu.duree}]] minutes</span>
-         </div>
-		<div>
-            <span>Genres :</span>
-            <th:block th:each="genre: ${jeu.genres}" >            
-            <span th:text="${genre.libelle}"></span>&nbsp;
-            </th:block>
-         </div>
 
+    <div>
+        <span>Référence : </span>
+        <span th:text="${jeu.reference}"></span>
+    </div>
+    <div>
+        <span>Description : </span>
+        <span th:text="${jeu.description}"></span>
+    </div>
+    <div>
+        <span>Tarif à la journée : </span>
+        <span>[[${jeu.tarifJournee}]] Euros</span>
+    </div>
+    <div>
+        <span>Âge minimum : </span>
+        <span>[[${jeu.ageMin}]] ans</span>
+    </div>
+    <div>
+        <span>Durée : </span>
+        <span>[[${jeu.duree}]] minutes</span>
+    </div>
+    <div>
+        <span>Genres :</span>
+        <th:block th:each="genre : ${jeu.genres}">
+            <span th:text="${genre.libelle}"></span>&nbsp;
+        </th:block>
+    </div>
+
+    <!-- Section des exemplaires -->
+    <div>
+        <h2>Exemplaires</h2>
+        <ul>
+            <li th:each="exemplaire : ${jeu.exemplaires}">
+                <span th:text="${exemplaire.codeBarre}"></span> - 
+                <span th:text="${exemplaire.louable ? 'Louable' : 'Non louable'}"></span>
+                <a th:href="@{/exemplaires/edit/{id}(id=${exemplaire.id})}">Modifier</a>
+                <form th:action="@{/exemplaires/delete/{id}(id=${exemplaire.id})}" method="post" style="display:inline;">
+                    <button type="submit">Supprimer</button>
+                </form>
+            </li>
+        </ul>
+        <a th:href="@{/exemplaires/add}">Ajouter un exemplaire</a>
+    </div>
 </div>

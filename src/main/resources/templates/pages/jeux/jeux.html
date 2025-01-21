@@ -16,17 +16,17 @@
         <tbody>
         <tr th:each="jeu: ${jeux}">
             <td class="px-4 py-2 border border-sky-500" >
-            <a th:text="${jeu.titre}" th:href="@{'jeux/' + ${jeu.noJeu} + '/afficher' }"></a>
+            <a th:text="${jeu.titre}" th:href="@{'jeux/' + ${jeu.id} + '/afficher' }"></a>
             </td>
             <td class="px-4 py-2 border border-sky-500" th:text="${jeu.reference}"></td>
             <td class="px-4 py-2 border border-sky-500" th:text="${jeu.duree + ' min'}"></td>
             <td class="px-4 py-2 border border-sky-500">
-                <a th:href="@{'jeux/modifier?noJeu=' + ${jeu.noJeu}}" class="text-blue-500 hover:text-blue-700">
+                <a th:href="@{'jeux/modifier?id=' + ${jeu.id}}" class="text-blue-500 hover:text-blue-700">
                     <i class="fas fa-pencil-alt"></i>
                     <span> Modifier </span> 
                 </a>
                 <span>&nbsp;&nbsp;</span>
-                <a th:href="@{'jeux/supprimer/' + ${jeu.noJeu}}" class="text-red-500 hover:text-red-700 ml-4">
+                <a th:href="@{'jeux/supprimer/' + ${jeu.id}}" class="text-red-500 hover:text-red-700 ml-4">
                     <i class="fas fa-trash"></i>
                      <span> Supprimer</span>
                 </a>

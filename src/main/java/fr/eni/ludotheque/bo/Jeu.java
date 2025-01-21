@@ -26,6 +26,8 @@ public class Jeu {
 
 	private List<Genre> genres;
 	
+	private List<Exemplaire> exemplaires = new ArrayList<>();
+	
 	public Jeu() {
 		genres = new ArrayList<>();
 	}
@@ -120,6 +122,14 @@ public class Jeu {
 
 	public void setGenres(List<Genre> genres) {
 		this.genres = genres;
+	}
+	
+	public List<Exemplaire> getExemplaires() {
+	    return exemplaires;
+	}
+
+	public void setExemplaires(List<Exemplaire> exemplaires) {
+	    this.exemplaires = exemplaires;
 	}
 
 	@Override
