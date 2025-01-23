@@ -59,7 +59,7 @@ public class JeuRepositoryJdbcImpl implements JeuRepository{
 
 	@Override
 	public List<Jeu> getAll() {
-		String sql = "select no_jeu, titre, reference, description, tarif_journee, ageMin, duree"
+		String sql = "select no_jeu as id, titre, reference, description, tarif_journee, ageMin, duree"
 				+ " from jeux";
 		List<Jeu> jeux = namedParameterJdbcTemplate.query(sql,
 				new BeanPropertyRowMapper<>(Jeu.class));
@@ -86,7 +86,7 @@ public class JeuRepositoryJdbcImpl implements JeuRepository{
 	public void update(Jeu jeu) {
 		String sql = "update  jeux set titre=:titre, reference=:reference, description=:description, "
 				+ "tarif_journee=:tarifJournee, "
-				+ "ageMin=:ageMin, duree=:duree where no_jeu = :noJeu";
+				+ "ageMin=:ageMin, duree=:duree where no_jeu = :id";
 		int nbRows = namedParameterJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(jeu));
 		if(nbRows != 1) {
 			throw new RuntimeException("La modification du jeu a échouée : " + jeu );
@@ -98,32 +98,32 @@ public class JeuRepositoryJdbcImpl implements JeuRepository{
 		
 		//Ajout des nouveaux  genres
 		List<JeuGenreDto> jeuGenreDtos = jeu.getGenres().stream().map(genre->new JeuGenreDto(jeu.getId(), genre.getNoGenre())).toList();
-		sql = "insert into jeux_genres ( no_jeu, no_genre) values (:noJeu,:noGenre)";
+		sql = "insert into jeux_genres ( no_jeu, no_genre) values (:id,:noGenre)";
 	    SqlParameterSource[] batchArgs = SqlParameterSourceUtils.createBatch(jeuGenreDtos);
 	    this.namedParameterJdbcTemplate.batchUpdate(sql, batchArgs);
 
 	}
 
 	@Override
-	public void delete(int noJeu) {
+	public void delete(int id) {
 		String sql = "delete from jeux_genres  where no_jeu = ? ";
-		jdbcTemplate.update(sql, noJeu);
+		jdbcTemplate.update(sql, id);
 		
 		sql = "delete from jeux  where no_jeu = ? ";
-		int nbRows = jdbcTemplate.update(sql, noJeu);
+		int nbRows = jdbcTemplate.update(sql, id);
 		if(nbRows != 1) {
-			throw new RuntimeException("La suppression du jeu a échouée : no_jeu= " +noJeu );
+			throw new RuntimeException("La suppression du jeu a échouée : no_jeu= " +id );
 		}
 		
 	}
 
 	@Override
-	public List<Genre> getGenresByNoJeu(Integer noJeu) {		
+	public List<Genre> getGenresByNoJeu(Integer id) {		
 		String sql = "select genres.no_genre as noGenre, libelle "
 				+ " from jeux_genres inner join genres on  jeux_genres.no_genre = genres.no_genre"
 				+ " where jeux_genres.no_jeu = ? ";
 		List<Genre> genres = jdbcTemplate.query(sql,
-				new BeanPropertyRowMapper<>(Genre.class), noJeu);
+				new BeanPropertyRowMapper<>(Genre.class), id);
 		
 		return genres;
 	}

@@ -43,7 +43,7 @@ public class JeuController {
     @GetMapping("/{id}")
     public String getJeuDetails(@PathVariable int id, Model model) {
         Jeu jeu = jeuService.getById(id).orElseThrow(() -> new RuntimeException("Jeu introuvable"));
-        List<Exemplaire> exemplaires = exemplaireService.getExemplairesByJeuId(id);
+        List<Exemplaire> exemplaires = exemplaireService.getExemplairesById(id);
         jeu.setExemplaires(exemplaires); // Ajoutez une liste d'exemplaires dans votre objet Jeu
         model.addAttribute("jeu", jeu);
         return "jeu";
@@ -53,10 +53,13 @@ public class JeuController {
     @GetMapping("/{id}/afficher")
     public String pageAjouterJeu(@PathVariable("id") Integer id, Model model) {
     	
+    	if (id == null) {
+	        throw new RuntimeException("L'ID est manquant ou invalide.");
+	    }
+    	
     	Optional<Jeu> optJeu = jeuService.getById(id);
     	
     	if(optJeu.isEmpty()) {
-    		//TODO : Erreur
     		throw new RuntimeException("Le jeu " + id +" n'a pas été trouvé. ");
     	}
         model.addAttribute("jeu", optJeu.get());

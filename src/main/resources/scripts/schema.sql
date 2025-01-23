@@ -1,8 +1,11 @@
+
+
 drop table if exists clients;
 drop table if exists jeux_genres;
 drop table if exists genres;
-drop table if exists exemplaires_jeu;
+drop table if exists exemplaires_jeux;
 drop table if exists jeux;
+drop table if exists utilisateurs;
 
 CREATE TABLE clients (
     no_client SERIAL PRIMARY KEY,
@@ -30,12 +33,6 @@ CREATE TABLE JEUX (
 	duree INTEGER NOT NULL
 );
 
-CREATE TABLE EXEMPLAIRES_JEU (
-	no_exemplaire INTEGER PRIMARY KEY,
-	codebarre VARCHAR(30) UNIQUE NOT NULL,
-	louable BOOLEAN NOT NULL
-);
-
 CREATE TABLE JEUX_GENRES (
     no_jeu INTEGER NOT NULL,
     no_genre INTEGER NOT NULL,
@@ -44,3 +41,17 @@ CREATE TABLE JEUX_GENRES (
     FOREIGN KEY (no_genre) REFERENCES GENRES(no_genre)
 );
 
+CREATE TABLE EXEMPLAIRES_JEUX (
+    no_exemplaire_jeu SERIAL PRIMARY KEY,
+	no_jeu INTEGER NOT NULL,
+    codebarre VARCHAR(13) UNIQUE NOT NULL,
+	louable BOOLEAN NOT NULL DEFAULT TRUE,
+	FOREIGN KEY (no_jeu) REFERENCES JEUX(no_jeu) ON DELETE CASCADE
+);
+
+CREATE TABLE utilisateurs (
+    no_utilisateur SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    mot_de_passe VARCHAR(500) NOT NULL,
+    role VARCHAR(255) NOT NULL
+);

@@ -5,5 +5,5 @@ import fr.eni.ludotheque.services.ICrudService;
 import java.util.List;
 
 public interface ExemplaireService extends ICrudService<Exemplaire> {
-    List<Exemplaire> getExemplairesByJeuId(int jeuId);
+    List<Exemplaire> getExemplairesById(int id);
 }

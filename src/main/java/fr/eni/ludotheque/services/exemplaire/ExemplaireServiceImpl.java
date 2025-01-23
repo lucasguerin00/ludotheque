@@ -40,8 +40,8 @@ public class ExemplaireServiceImpl implements ExemplaireService {
     }
 
     @Override
-    public List<Exemplaire> getExemplairesByJeuId(int jeuId) {
-        return exemplaireRepo.findByJeuId(jeuId);
+    public List<Exemplaire> getExemplairesById(int id) {
+        return exemplaireRepo.findByJeuId(id);
     }
     
     @Override
